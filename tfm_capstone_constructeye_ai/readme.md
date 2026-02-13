@@ -2,7 +2,7 @@
 
 **Advanced Safety Oversight through Computer Vision**
 
-!["ConstructEye_AI"](/images/constructeye_black.jpg)
+!["ConstructEye_AI"](tfm_capstone_constructeye_ai/images/constructeye_black.jpg)
 
 **Author:** Roger González
 **Program:** MSc in Data Science, Big Data & Business Analytics
