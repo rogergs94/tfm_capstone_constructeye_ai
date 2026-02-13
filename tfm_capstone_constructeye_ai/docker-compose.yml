@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: ./app          # Docker entrará aquí para construir
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./Frontend_streamlit  # Docker entrará aquí para construir
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000

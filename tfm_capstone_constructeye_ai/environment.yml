@@ -1,0 +1,15 @@
+name: tfm_vision
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - streamlit
+  - streamlit-webrtc
+  - av
+  - opencv
+  - pip
+  - pip:
+    - ultralytics #YOLO Model
+    - fastapi
+    - uvicorn

@@ -1,0 +1,11 @@
+streamlit
+streamlit-webrtc==0.64.5
+requests
+python-multipart
+httpx
+av
+numpy==1.26.4
+matplotlib==3.10.8
+seaborn
+plotly
+Pillow
