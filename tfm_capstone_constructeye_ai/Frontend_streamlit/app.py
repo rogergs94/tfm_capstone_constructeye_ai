@@ -23,7 +23,7 @@ ip_aws_address = "XX.XX.XX.XX"  # AWS IP address
 local_host = "http://XXX.X.X.X" # Localhost for testing
 port = 8000
 
-http_client = httpx.Client(f"base_url={local_host}:{port}", timeout=120.0)
+http_client = httpx.Client(base_url=f"{local_host}:{port}", timeout=120.0)
 
 
 # SESSION STATES INITIALIZATION ===================================================
