@@ -20,11 +20,10 @@ import datetime
 
 # Paste your IPs here:
 ip_aws_address = "XX.XX.XX.XX"  # AWS IP address
-local_host = "http://XXX.X.X.X:8000" # Localhost for testing
+local_host = "http://XXX.X.X.X" # Localhost for testing
+port = 8000
 
-#backend_url = os.getenv("BACKEND_URL", f"http://{ip_address}:8000")
-http_client = httpx.Client(base_url=local_host, timeout=120.0)
-
+http_client = httpx.Client(f"base_url={local_host}:{port}", timeout=120.0)
 
 
 # SESSION STATES INITIALIZATION ===================================================
