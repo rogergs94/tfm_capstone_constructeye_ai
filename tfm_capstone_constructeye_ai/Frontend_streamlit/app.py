@@ -18,9 +18,9 @@ import datetime
 
 ## FUNCTIONS AND CLASSES ==================================================
 
-# 1. PERSISTENT CLIENT (Outside functions)
-ip_aws_address = "98.81.50.97"  # AWS IP address
-local_host = "http://127.0.0.1:8000" # Localhost for testing
+# Paste your IPs here:
+ip_aws_address = "XX.XX.XX.XX"  # AWS IP address
+local_host = "http://XXX.X.X.X:8000" # Localhost for testing
 
 #backend_url = os.getenv("BACKEND_URL", f"http://{ip_address}:8000")
 http_client = httpx.Client(base_url=local_host, timeout=120.0)
