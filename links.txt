@@ -1,0 +1,8 @@
+Video: https://youtu.be/AhKJGrknsH0
+
+Repositorio Github: https://github.com/rogergs94/tfm_capstone_constructeye_ai
+
+Notebook Introduction and Business Justification: https://github.com/rogergs94/tfm_capstone_constructeye_ai/blob/main/Business_justification_Analysis-Construction_accidents.ipynb
+
+Notebook EDA y entrenamiento del modelo: https://github.com/rogergs94/tfm_capstone_constructeye_ai/blob/main/1_Model_Training.ipynb
+
