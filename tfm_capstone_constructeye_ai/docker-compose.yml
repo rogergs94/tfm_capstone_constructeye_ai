@@ -1,14 +1,16 @@
 services:
   backend:
     build:
-      context: ./app          # Docker entrará aquí para construir
+      context: ./app          
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./app/processed:/app/processed
 
   frontend:
     build:
-      context: ./Frontend_streamlit  # Docker entrará aquí para construir
+      context: ./Frontend_streamlit  
       dockerfile: Dockerfile
     ports:
       - "8501:8501"
