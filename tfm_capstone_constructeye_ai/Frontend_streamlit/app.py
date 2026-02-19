@@ -19,11 +19,15 @@ import datetime
 ## FUNCTIONS AND CLASSES ==================================================
 
 # Paste your IPs here:
-ip_aws_address = "XX.XX.XX.XX"  # AWS IP address
-local_host = "http://XXX.X.X.X" # Localhost for testing
-port = 8000
+backend_base_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+http_client = httpx.Client(base_url=backend_base_url, timeout=120.0)
 
-http_client = httpx.Client(base_url=f"{local_host}:{port}", timeout=120.0)
+#ip_aws_address = "xxxxxx"  # AWS IP address
+#local_host = "0.0.0.0" # Localhost for testing
+#port = 8000
+
+#http_client = httpx.Client(base_url=f"http://{local_host}:{port}", timeout=120.0)
+
 
 
 # SESSION STATES INITIALIZATION ===================================================
@@ -61,8 +65,14 @@ if "frame_count" not in st.session_state:
 
 # STREAMLIT APP ==================================================
 ## --- STREAMLIT INTERFACE ---
-st.title("Object Detection and Tracking App")
-st.subheader("Created and developed by Roger González")
+st.title("ConstructEye AI")
+st.markdown("#### *An AI-based Object Detection and Tracking System*")
+try:
+    st.image("../images/constructeye_white.jpg")
+except:
+    st.text("ConstructEye AI")
+    
+st.markdown("##### *Created and developed by Roger González*")
 st.text("This model has been trained on a dataset of thousands of images with different classes (person, helmet, no-helmet, vest, no-vest). The model belongs to the YOLOv8n family.")
 
 st.sidebar.markdown(f"**Session ID:** {current_session_id}")
@@ -89,7 +99,7 @@ try:
     app_specs = http_client.get(f"/")                
     if app_specs.status_code == 200:
         specs_data = app_specs.json()
-        st.sidebar.markdown(f'*{specs_data["model"]} v{specs_data["version"]}*')
+        st.sidebar.markdown(f'*{specs_data["model_file"]} {specs_data["current_model"]}*')
 except:
     st.sidebar.error("Model API is offline.")
 
