@@ -25,7 +25,7 @@ from botocore.exceptions import ClientError
 # --- S3 CONFIGURATION FOR PERSISTENCE ---
 # Initialize S3 client. AWS will automatically use the IAM Task Role in ECS.
 s3_client = boto3.client('s3')
-BUCKET_NAME = "tfm-s3" #First, create the bucket in AWS S3 and set the name here
+BUCKET_NAME = "tfm-s3" ###First, create the bucket in AWS S3 and set the name here!
 
 app = FastAPI(title="PPE Detection API - Capstone Project", version="1.0.0")
 
@@ -34,8 +34,13 @@ OUTPUT_DIR = "processed"
 #os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Load YOLO model
-model_path = "best_YOLOv8n_TFM_Yolo11s_Dec22_con_Data_Aug.pt"
-model = YOLO(model_path)
+models = {
+    "v1": "best_YOLOv8n_TFM_Yolo11s_Dec22_con_Data_Aug.pt",
+    "v2": "best_TFM_yolov8n_2026-02-16_WITH_Data_Aug.pt" 
+}
+
+current_model_version = "v2" # Loading the v2 model by default
+model = YOLO(models[current_model_version])
 
 # FUNCTIONS ================================================================================================
 # It ensures that the S3 key is consistent for all video uploads, making it easier to manage files in the bucket
@@ -69,13 +74,16 @@ def get_video_writer(width, height, fps=20):
     return video_writer
 
 
-## ROOT ====================================================================================================
+## ROOT ===================================================================================================
 @app.get("/")
 async def root():
     message = {
-        "message": "Model YOLOv8n Trained for Object Detection - TFM",
+        "project": "ConstructEye AI - PPE Detection",
         "version": "1.0.0",
-        "model": "YOLOv8n"
+        "current_model": current_model_version, # it returns v1 or v2 depending on the model loaded
+        "model_file": models[current_model_version], # name of the file.pt
+        "status": "ready",
+        "description": "YOLOv8n trained for detecting helmets, vests, and persons in construction sites."
     }
     return message
 
@@ -117,13 +125,12 @@ async def prepare_output_dir(storage_type: str = "local"):
         raise HTTPException(status_code=500, detail=f"Error preparing output directory: {str(e)}")
         
 
-
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
 
 
-## IMAGENES ================================================================================================
+## IMAGES ===============================================================================================
 # Endpoint with metadata (image)
 @app.post("/image-specs")
 async def image_specs(image: UploadFile = File(...)):
@@ -209,7 +216,7 @@ async def predict_image(image: UploadFile = File(...), conf: float = 0.15, iou: 
 
 
 ## VIDEOS ================================================================================================
-# Endpoint para saber el metadata del video subido por el usuario
+# Endpoint with metadata (video)
 @app.post("/video-feed-df-specs") 
 async def video_feed_specs(video: UploadFile = File(...)):
     # 1. Save the video in a temp file
@@ -556,8 +563,16 @@ async def predict_single_frame(
         # Save the df to a CSV file. 
         # If the file already exists, it appends the new data without writing the header again.
         df_to_save.to_csv(session_log_file, mode='a', index=False, header=not file_exists)
-        
         print(f"Live detections saved to {session_log_file}")
+
+        # Save the df to a JSON file and upload to S3
+        try:
+            s3_key_log = get_s3_key(os.path.basename(session_log_file)) # Use the helper function to get the S3 key
+            s3_client.upload_file(session_log_file, BUCKET_NAME, s3_key_log) # Upload the log file to S3
+            print(f"DEBUG: Successfully uploaded live log {s3_key_log} to S3")
+        except Exception as s3_err:
+            print(f"WARNING: S3 Upload of live log failed: {s3_err}")
+
 
         # # If the file doesn't exist, it will create it
         # # If it exists, it will add the results at the end (mode = )
