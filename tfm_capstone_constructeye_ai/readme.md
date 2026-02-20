@@ -72,4 +72,18 @@ To launch these services you will need separate terminals:
 ```bash
 git clone [https://github.com/rogergs94/tfm_capstone_constructeye_ai.git](https://github.com/rogergs94/tfm_capstone_constructeye_ai.git)
 cd tfm_capstone_constructeye_ai
+´´´
+
+---
+
+## 🚀 Deployment with Docker
+
+This project is fully containerized using **Docker** and **Docker Compose**, ensuring a consistent environment for both the FastAPI backend and the Streamlit frontend.
+
+### 1. Environment Setup
+The application relies on environment variables for service communication. 
+1. Locate the `.env.example` file in the root directory.
+2. Create a copy and rename it to `.env`:
+   ```bash
+   cp .env.example .env
 ```
