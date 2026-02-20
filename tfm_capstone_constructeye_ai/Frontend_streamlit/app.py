@@ -15,12 +15,20 @@ from collections import Counter
 import os
 import httpx 
 import datetime
+from dotenv import load_dotenv # To load environment variables from a .env file
 
 ## FUNCTIONS AND CLASSES ==================================================
 
 # Paste your IPs here:
-backend_base_url = os.getenv("BACKEND_URL", "http://localhost:8000")
-http_client = httpx.Client(base_url=backend_base_url, timeout=120.0)
+#Loading my env variables from dotenv import load_dotenv
+
+load_dotenv()
+
+#In the .env file, add the line:
+# BACKEND_URL=http://your_backend_ip:8000
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+http_client = httpx.Client(base_url=BACKEND_URL, timeout=120.0)
 
 #ip_aws_address = "xxxxxx"  # AWS IP address
 #local_host = "0.0.0.0" # Localhost for testing
