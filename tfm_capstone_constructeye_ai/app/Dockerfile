@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # 4. Copy requirements FIRST (Docker Cache Optimization)
-COPY requirements_app.txt .
+COPY app/requirements_app.txt .
 
 # 5. Install Python Libraries
 RUN pip install --no-cache-dir --upgrade pip \
@@ -30,7 +30,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && rm -rf /root/.cache/pip
 
 # 6. Copy the rest of the application code
-COPY . .
+COPY app/ .
 
 # 7. Expose Uvicorn port
 EXPOSE 8000
