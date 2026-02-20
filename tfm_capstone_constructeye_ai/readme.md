@@ -80,10 +80,13 @@ cd tfm_capstone_constructeye_ai
 
 This project is fully containerized using **Docker** and **Docker Compose**, ensuring a consistent environment for both the FastAPI backend and the Streamlit frontend.
 
+- **Docker BackEnd repo: ** https://hub.docker.com/repository/docker/rogergs94/tfm_capstone_constructeye_ai/general
+
+- **Docker FrontEnd repo: ** https://hub.docker.com/repository/docker/rogergs94/tfm_capstone_constructeye_ai_frontend/general
+
 ### 1. Environment Setup
 The application relies on environment variables for service communication. 
 1. Locate the `.env.example` file in the root directory.
 2. Create a copy and rename it to `.env`:
    ```bash
    cp .env.example .env
-```
