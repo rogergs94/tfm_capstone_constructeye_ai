@@ -72,7 +72,7 @@ To launch these services you will need separate terminals:
 ```bash
 git clone [https://github.com/rogergs94/tfm_capstone_constructeye_ai.git](https://github.com/rogergs94/tfm_capstone_constructeye_ai.git)
 cd tfm_capstone_constructeye_ai
-´´´
+```
 
 ---
 
