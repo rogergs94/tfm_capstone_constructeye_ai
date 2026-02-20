@@ -6,3 +6,8 @@ Notebook Introduction and Business Justification: https://github.com/rogergs94/t
 
 Notebook EDA y entrenamiento del modelo: https://github.com/rogergs94/tfm_capstone_constructeye_ai/blob/main/1_Model_Training.ipynb
 
+Docker Repository Backend: https://hub.docker.com/repository/docker/rogergs94/constructeye_ai_backend/general
+- Docker backend image: rogergs94/tfm_capstone_constructeye_ai:v1
+
+Docker Repository Frontend: https://hub.docker.com/repository/docker/rogergs94/tfm_capstone_constructeye_ai_frontend/general
+- Docker frontend image: rogergs94/tfm_capstone_constructeye_ai_frontend:v1
