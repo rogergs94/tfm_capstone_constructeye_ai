@@ -1,20 +1,25 @@
 services:
   backend:
-    build:
-      context: ./app          
-      dockerfile: Dockerfile
+    image: rogergs94/tfm_capstone_constructeye_ai:v1
+    build:     
+      context: .     #root directory of the project    
+      dockerfile: app/Dockerfile  # where the Dockerfile is located
     ports:
-      - "8000:8000"
+      - "8000:8000" 
     volumes:
-      - ./app/processed:/app/processed
+      - ./app/processed:/app/processed # Mount the processed directory to persist data
+
 
   frontend:
+    image: rogergs94/tfm_capstone_constructeye_ai_frontend:v1
     build:
-      context: ./Frontend_streamlit  
-      dockerfile: Dockerfile
+      context: . 
+      dockerfile: Frontend_streamlit/Dockerfile
     ports:
       - "8501:8501"
     depends_on:
       - backend
+    env_file: # Read the .env file for environment variables
+      - .env
     environment:
       - BACKEND_URL=http://backend:8000
